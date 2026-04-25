@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diyetisyen Nurşin Turan | Sağlıklı Yaşam</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: Inter, sans-serif; }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    const { motion } = window.Motion;
+
+    const Card = ({ children, className = "" }) => (
+      <div className={`bg-white border rounded-xl shadow-sm ${className}`}>
+        {children}
+      </div>
+    );
+
+    const CardContent = ({ children, className = "" }) => (
+      <div className={`p-4 ${className}`}>
+        {children}
+      </div>
+    );
+
+    const Button = ({ children, className = "", onClick, variant = "default" }) => {
+      const base = "px-4 py-2 rounded-xl font-medium transition-all active:scale-95 flex items-center justify-center ";
+      const styles = variant === "outline"
+        ? "border border-gray-300 hover:bg-gray-50 text-gray-700"
+        : "text-white";
+
+      return (
+        <button onClick={onClick} className={base + styles + " " + className}>
+          {children}
+        </button>
+      );
+    };
+
+    const Input = (props) => (
+      <input
+        {...props}
+        className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+      />
+    );
+
+    const Textarea = (props) => (
+      <textarea
+        {...props}
+        className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none min-h-[100px]"
+      />
+    );
+
+    function DietitianWebsite() {
+      const [reviewIndex, setReviewIndex] = useState(0);
+
+      const whatsappNumber = "905386896165";
+      const whatsappMessage = encodeURIComponent("Merhaba, randevu almak istiyorum.");
+      const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+      const reviews = [
+        {
+          name: "Ayşe Demir",
+          text: "2 ayda 7 kilo verdim ve süreç çok sağlıklıydı.",
+          img: "https://i.pravatar.cc/100?img=1"
+        },
+        {
+          name: "Mehmet Kaya",
+          text: "Sporcu beslenme planım tam bana göreydi.",
+          img: "https://i.pravatar.cc/100?img=12"
+        },
+        {
+          name: "Elif Yıldız",
+          text: "Online diyet sayesinde çok rahat ilerledim.",
+          img: "https://i.pravatar.cc/100?img=5"
+        },
+        {
+          name: "Burak Arslan",
+          text: "Kilo alma sürecimde çok profesyonel destek aldım.",
+          img: "https://i.pravatar.cc/100?img=8"
+        }
+      ];
+
+      useEffect(() => {
+        const interval = setInterval(() => {
+          setReviewIndex((prev) => (prev + 1) % reviews.length);
+        }, 3500);
+
+        return () => clearInterval(interval);
+      }, []);
+
+      const nextReview = () => {
+        setReviewIndex((p) => (p + 1) % reviews.length);
+      };
+
+      const prevReview = () => {
+        setReviewIndex((p) => (p - 1 + reviews.length) % reviews.length);
+      };
+
+      const blogPosts = [
+        {
+          title: "1. Öğünlerini dengele",
+          img: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=400&q=80",
+          desc: "Her öğünde protein, sağlıklı yağ ve lifli karbonhidrat birlikte olsun.Bu denge kan şekerini daha stabil tutar, ani açlık krizlerini ve tatlı isteğini azaltır."
+        },
+        {
+          title: "2. Açlığını değil, ihtiyacını dinle",
+          img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80",
+          desc: "Gerçek açlık ile duygusal açlığı ayırt etmeye çalış. Sık sık atıştırma isteği yaşıyorsan bu; yetersiz beslenme, stres veya düzensiz öğünlerden kaynaklanıyor olabilir."
+        },
+        {
+          title: "3. Yasaklar yerine denge kur",
+          img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80",
+          desc: "Hiçbir besin tek başına “kötü” değildir.Katı yasaklar sürdürülemez ve çoğu zaman daha fazla yeme isteği yaratır. Önemli olan porsiyon kontrolü ve genel denge.."
+        }
+      ];
+
+      return (
+        <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-green-50 text-gray-800">
+
+          {/* NAVBAR */}
+          <header className="sticky top-0 z-50 backdrop-blur bg-white/70 border-b">
+            <div className="max-w-6xl mx-auto flex justify-between items-center p-4">
+              <h1 className="text-xl font-bold text-green-700">
+                🌿 Diyetisyen Nurşin Turan
+              </h1>
+
+              <nav className="hidden md:flex space-x-5 text-sm font-medium text-gray-700">
+                <a href="#about" className="hover:text-green-600 transition">Hakkımda</a>
+                <a href="#services" className="hover:text-green-600 transition">Hizmetler</a>
+                <a href="#blog" className="hover:text-green-600 transition">Blog</a>
+                <a href="#reviews" className="hover:text-green-600 transition">Yorumlar</a>
+                <a href="#contact" className="hover:text-green-600 transition">İletişim</a>
+              </nav>
+            </div>
+          </header>
+
+          {/* HERO */}
+          <section className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center py-16 px-6">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold leading-tight text-green-800">
+                Sağlıklı yaşam <br /> burada başlar.
+              </h2>
+
+              <p className="mt-4 text-gray-600 text-lg">
+                Sana özel beslenme planları ile hedeflerine ulaş, daha enerjik hisset.
+              </p>
+
+              <div className="mt-6 flex gap-3">
+                <a href="#contact">
+                  <Button className="bg-green-600 hover:bg-green-700 px-6 py-2">
+                    Randevu Al
+                  </Button>
+                </a>
+
+                <a href={whatsappLink} target="_blank" rel="noreferrer">
+                  <Button className="bg-emerald-500 hover:bg-emerald-600 px-6 py-2">
+                    WhatsApp
+                  </Button>
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.img
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              src="https://images.unsplash.com/photo-1490645935967-10de6ba17061"
+              className="rounded-3xl shadow-xl w-full h-[400px] object-cover"
+              alt="sağlıklı beslenme"
+            />
+          </section>
+
+          {/* ABOUT */}
+          <section id="about" className="max-w-5xl mx-auto py-16 px-6">
+            <h3 className="text-3xl font-bold text-green-700 mb-4">
+              Hakkımda
+            </h3>
+
+            <p className="text-gray-600 leading-relaxed text-lg">
+              Ben Diyetisyen Nurşin Turan.
+              <br /><br />
+              Seni bir bütün olarak değerlendirir, yaşam tarzına uygun sürdürülebilir bir yol oluştururum.
+              <br /><br />
+              Çünkü geçici listeler değil, kalıcı alışkanlıklar hayatı değiştirir.
+              <br /><br />
+              Birlikte sadece “Ne yemeliyim?” sorusuna değil,
+              <br />
+              “Neden böyle hissediyorum?” sorusuna da cevap buluruz.
+              <br /><br />
+              Çünkü iyi beslenmek; yalnızca fiziksel sağlığı değil, zihinsel ve hormonal dengeyi de iyileştirir.
+            </p>
+          </section>
+
+          {/* SERVICES */}
+          <section id="services" className="bg-green-100/50 py-16 px-6">
+            <div className="max-w-6xl mx-auto">
+              <h3 className="text-3xl font-bold text-green-700 mb-8">
+                Hizmetler
+              </h3>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                {["Kilo Verme", "Kilo Alma", "Hastalıklarda Beslenme", "Online Diyet"].map((item) => (
+                  <Card key={item} className="rounded-2xl hover:shadow-md transition bg-white border-none">
+                    <CardContent className="p-8 text-center font-bold text-green-800">
+                      {item}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* BLOG */}
+          <section id="blog" className="max-w-6xl mx-auto py-16 px-6">
+            <h3 className="text-3xl font-bold text-green-700">Blog</h3>
+
+            <div className="grid md:grid-cols-3 gap-6 mt-6">
+              {blogPosts.map((post, i) => (
+                <Card key={i} className="rounded-2xl overflow-hidden hover:scale-[1.02] transition duration-300">
+                  <img
+                    src={post.img}
+                    alt={post.title}
+                    className="w-full h-48 object-cover"
+                  />
+
+                  <CardContent className="p-4">
+                    <h4 className="font-bold text-lg">{post.title}</h4>
+                    <p className="text-sm text-gray-600 mt-2">{post.desc}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
+
+          {/* REVIEWS */}
+          <section id="reviews" className="bg-green-100/50 py-16 px-6">
+            <div className="max-w-3xl mx-auto text-center">
+              <h3 className="text-3xl font-bold text-green-700 mb-8">
+                Danışan Yorumları
+              </h3>
+
+              <motion.div
+                key={reviewIndex}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-white p-8 rounded-3xl shadow-lg border border-green-100"
+              >
+                <img
+                  src={reviews[reviewIndex].img}
+                  className="w-20 h-20 mx-auto rounded-full border-4 border-green-100"
+                  alt="danışan"
+                />
+
+                <p className="mt-4 italic text-gray-600 text-lg">
+                  “{reviews[reviewIndex].text}”
+                </p>
+
+                <h4 className="mt-3 font-bold text-green-700">
+                  {reviews[reviewIndex].name}
+                </h4>
+              </motion.div>
+
+              <div className="flex justify-center gap-4 mt-6">
+                <Button variant="outline" onClick={prevReview}>←</Button>
+                <Button className="bg-green-600" onClick={nextReview}>→</Button>
+              </div>
+            </div>
+          </section>
+
+          {/* CONTACT */}
+          <section id="contact" className="max-w-6xl mx-auto py-16 px-6">
+            <h3 className="text-3xl font-bold text-green-700 mb-6">
+              İletişim
+            </h3>
+
+            <div className="grid md:grid-cols-2 gap-12">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 text-gray-600">
+                  <span className="text-xl">📍</span>
+                  <span>Mersin, Türkiye</span>
+                </div>
+
+                <div className="flex items-center gap-3 text-gray-600">
+                  <span className="text-xl">📞</span>
+                  <span>+90 538 689 61 65</span>
+                </div>
+
+                <div className="flex items-center gap-3 text-gray-600">
+                  <span className="text-xl">✉️</span>
+                  <span>dyt.nursintrn8@gmail.com</span>
+                </div>
+
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block bg-green-50 text-green-700 font-bold px-4 py-2 rounded-lg border border-green-200"
+                >
+                  WhatsApp ile hemen yazın
+                </a>
+              </div>
+
+              <div className="space-y-3 bg-white p-6 rounded-2xl shadow-sm border">
+                <Input placeholder="Ad Soyad" />
+                <Input placeholder="E-posta" />
+                <Textarea placeholder="Nasıl yardımcı olabilirim?" />
+                <Button className="bg-green-600 w-full py-3">
+                  Mesaj Gönder
+                </Button>
+              </div>
+            </div>
+          </section>
+
+          {/* FOOTER */}
+          <footer className="py-10 border-t text-center text-sm text-gray-500 bg-white">
+            © 2026 Diyetisyen Nurşin Turan. Tüm Hakları Saklıdır.
+            <br />
+            <span className="mt-2 block italic text-green-600">
+              Sağlıklı yaşam seninle başlar.
+            </span>
+          </footer>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<DietitianWebsite />);
+  </script>
+</body>
+</html>
